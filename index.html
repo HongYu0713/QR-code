@@ -13,6 +13,11 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary">
     <link rel="canonical" href="#">
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1794897684778209"
+         crossorigin="anonymous"></script>
+
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         :root{
@@ -42,7 +47,6 @@
         .header-right{display:flex;align-items:center;gap:12px}
         .header-badge{font-size:12px;color:var(--accent);background:rgba(0,206,201,.1);border:1px solid rgba(0,206,201,.2);padding:4px 12px;border-radius:20px;font-weight:500}
 
-        /* Language Switcher */
         .lang-switch{display:flex;background:var(--bg-input);border:1px solid var(--border);border-radius:10px;overflow:hidden}
         .lang-btn{padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all .25s ease;color:var(--text-secondary);background:transparent}
         .lang-btn.active{background:var(--primary);color:#fff}
@@ -115,6 +119,10 @@
         .copy-btn{padding:14px 20px;background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}
         .copy-btn:hover{background:rgba(35,33,54,.8);border-color:var(--primary)}
         .copy-btn svg{width:18px;height:18px}
+
+        /* Ad Slots */
+        .ad-slot{width:100%;max-width:580px;margin:24px 0;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center}
+        .ad-slot-wide{max-width:900px}
 
         .features{max-width:900px;width:100%;margin-top:80px}
         .features>h2{text-align:center;font-size:28px;margin-bottom:40px}
@@ -243,6 +251,16 @@
         </div>
     </section>
 
+    <!-- Ad Slot 1: After Generator -->
+    <div class="ad-slot" aria-label="Advertisement">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1794897684778209"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
+
     <section class="features" aria-label="Features">
         <h2><span data-i18n="featuresTitle1">Why Choose </span><span class="gradient" style="background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">QR扫描王</span></h2>
         <div class="features-grid">
@@ -263,6 +281,16 @@
             </article>
         </div>
     </section>
+
+    <!-- Ad Slot 2: Between Features and How-it-works -->
+    <div class="ad-slot ad-slot-wide" aria-label="Advertisement">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1794897684778209"
+             data-ad-slot="auto"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+    </div>
 
     <section class="how-it-works" aria-label="How it works">
         <h2 data-i18n="howTitle">Three Simple Steps</h2>
@@ -291,6 +319,16 @@
         <h2 data-i18n="aboutTitle">About QR扫描王 Online QR Code Generator</h2>
         <p data-i18n="aboutDesc">QR扫描王 is a completely free online QR code generation tool. Whether you need QR codes for websites, products, business cards, or social media, simply enter a URL and generate a high-quality QR code in seconds. Our tool works on all modern browsers, perfectly adapts to desktop and mobile, requires no software installation — just open and use. The generated QR codes are clear and reliable, suitable for both print and digital scenarios.</p>
     </section>
+
+    <!-- Ad Slot 3: Before Footer -->
+    <div class="ad-slot" aria-label="Advertisement">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1794897684778209"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+    </div>
 </main>
 
 <footer role="contentinfo">
@@ -384,34 +422,24 @@ let currentLang = 'en';
 function switchLang(lang) {
     currentLang = lang;
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-
-    // Update active button
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
-
-    // Update all text
     const strings = i18n[lang];
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (strings[key]) el.textContent = strings[key];
     });
-
-    // Update placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.dataset.i18nPlaceholder;
         if (strings[key]) el.placeholder = strings[key];
     });
-
     localStorage.setItem('qr_lang', lang);
 }
 
-// Restore saved language
 (function() {
     const saved = localStorage.getItem('qr_lang');
-    if (saved && i18n[saved]) {
-        switchLang(saved);
-    }
+    if (saved && i18n[saved]) switchLang(saved);
 })();
 
 
@@ -420,48 +448,15 @@ function switchLang(lang) {
 // ==========================================
 const QRCode = (() => {
     const GF256 = {
-        exp: new Uint8Array(512),
-        log: new Uint8Array(256),
-        init() {
-            let x = 1;
-            for (let i = 0; i < 255; i++) {
-                this.exp[i] = x;
-                this.log[x] = i;
-                x = x << 1;
-                if (x >= 256) x ^= 0x11d;
-            }
-            for (let i = 255; i < 512; i++) this.exp[i] = this.exp[i - 255];
-        },
-        multiply(a, b) {
-            if (a === 0 || b === 0) return 0;
-            return this.exp[this.log[a] + this.log[b]];
-        }
+        exp: new Uint8Array(512), log: new Uint8Array(256),
+        init() { let x=1; for(let i=0;i<255;i++){this.exp[i]=x;this.log[x]=i;x<<=1;if(x>=256)x^=0x11d} for(let i=255;i<512;i++)this.exp[i]=this.exp[i-255] },
+        multiply(a,b){if(a===0||b===0)return 0;return this.exp[this.log[a]+this.log[b]]}
     };
     GF256.init();
 
-    function polyMultiply(p1, p2) {
-        const r = new Uint8Array(p1.length + p2.length - 1);
-        for (let i = 0; i < p1.length; i++)
-            for (let j = 0; j < p2.length; j++)
-                r[i + j] ^= GF256.multiply(p1[i], p2[j]);
-        return r;
-    }
-
-    function polyMod(dividend, divisor) {
-        let r = new Uint8Array(dividend);
-        while (r.length >= divisor.length) {
-            const c = r[0];
-            if (c !== 0) for (let i = 0; i < divisor.length; i++) r[i] ^= GF256.multiply(divisor[i], c);
-            r = r.slice(1);
-        }
-        return r;
-    }
-
-    function getGenPoly(degree) {
-        let g = new Uint8Array([1]);
-        for (let i = 0; i < degree; i++) g = polyMultiply(g, new Uint8Array([1, GF256.exp[i]]));
-        return g;
-    }
+    function polyMul(p1,p2){const r=new Uint8Array(p1.length+p2.length-1);for(let i=0;i<p1.length;i++)for(let j=0;j<p2.length;j++)r[i+j]^=GF256.multiply(p1[i],p2[j]);return r}
+    function polyMod(d,div){let r=new Uint8Array(d);while(r.length>=div.length){const c=r[0];if(c!==0)for(let i=0;i<div.length;i++)r[i]^=GF256.multiply(div[i],c);r=r.slice(1)}return r}
+    function getGen(deg){let g=new Uint8Array([1]);for(let i=0;i<deg;i++)g=polyMul(g,new Uint8Array([1,GF256.exp[i]]));return g}
 
     const CAP_M=[0,14,26,42,62,84,106,122,152,180,213,251,287,331,362,412,450,504,560,624,666,711,779,857,911,997,1059,1125,1190,1264,1370,1452,1538,1628,1722,1809,1911,1989,2099,2213,2331];
     const EC_CW_M=[0,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28];
@@ -469,89 +464,45 @@ const QRCode = (() => {
     const BLK2_M=[0,0,0,0,0,0,0,0,2,2,1,4,2,1,5,5,3,1,4,11,13,0,6,18,16,14,4,3,23,7,10,29,23,21,23,26,34,14,32,7,31];
     const DCW1_M=[0,16,28,44,32,46,27,31,38,36,43,50,36,37,40,41,45,46,43,44,41,42,46,47,45,47,46,45,45,45,47,46,46,46,47,47,46,46,45,47,46];
     const DCW2_M=[0,0,0,0,0,0,0,0,39,37,44,51,37,38,41,42,46,47,44,45,42,0,47,48,46,48,47,46,46,46,48,47,47,47,48,48,47,47,46,48,47];
-
-    const ALIGN=[
-        [],[],[6,18],[6,22],[6,26],[6,30],[6,34],
-        [6,22,38],[6,24,42],[6,26,46],[6,28,50],
-        [6,30,54],[6,32,58],[6,34,62],[6,26,46,66],
-        [6,26,48,70],[6,26,50,74],[6,30,54,78],
-        [6,30,56,82],[6,30,58,86],[6,34,62,90],
-        [6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],
-        [6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],
-        [6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],
-        [6,26,52,78,104,130],[6,30,56,82,108,134],
-        [6,34,60,86,112,138],[6,30,58,86,114,142],
-        [6,34,62,90,118,146],[6,30,54,78,102,126,150],
-        [6,24,50,76,102,128,154],[6,28,54,80,106,132,158],
-        [6,32,58,84,110,136,162],[6,26,54,82,110,138,166],
-        [6,30,58,86,114,142,170]
-    ];
-
+    const ALIGN=[[],[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]];
     const VER_INFO=[0,0,0,0,0,0,0,0x07C94,0x085BC,0x09A99,0x0A4D3,0x0BBF6,0x0C762,0x0D847,0x0E60D,0x0F928,0x10B78,0x1145D,0x12A17,0x13532,0x149A6,0x15683,0x168C9,0x177EC,0x18EC4,0x191E1,0x1AFAB,0x1B08E,0x1CC1A,0x1D33F,0x1ED75,0x1F250,0x209D5,0x216F0,0x228BA,0x2379F];
     const FMT_M=[0x5412,0x5125,0x5E7C,0x5B4B,0x45F9,0x40CE,0x4F97,0x4AA0];
 
     function getVer(len){for(let v=1;v<=40;v++)if(CAP_M[v]>=len)return v;return -1}
     function modCnt(v){return v*4+17}
     function totalDCW(v){return BLK1_M[v]*DCW1_M[v]+BLK2_M[v]*DCW2_M[v]}
-
-    function mkMatrix(v){const s=modCnt(v),m=[];for(let i=0;i<s;i++)m[i]=new Array(s).fill(null);return m}
-
+    function mkM(v){const s=modCnt(v),m=[];for(let i=0;i<s;i++)m[i]=new Array(s).fill(null);return m}
     function addFinder(m,r,c){const s=m.length;for(let dr=-1;dr<=7;dr++)for(let dc=-1;dc<=7;dc++){const mr=r+dr,mc=c+dc;if(mr<0||mr>=s||mc<0||mc>=s)continue;m[mr][mc]=((dr>=0&&dr<=6&&(dc===0||dc===6))||(dc>=0&&dc<=6&&(dr===0||dr===6))||(dr>=2&&dr<=4&&dc>=2&&dc<=4))?1:0}}
-
     function addAlign(m,r,c){for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++)m[r+dr][c+dc]=(Math.abs(dr)===2||Math.abs(dc)===2||(dr===0&&dc===0))?1:0}
-
     function addTiming(m){const s=m.length;for(let i=8;i<s-8;i++){if(m[6][i]===null)m[6][i]=i%2===0?1:0;if(m[i][6]===null)m[i][6]=i%2===0?1:0}}
-
     function reserveFmt(m,v){const s=m.length;for(let i=0;i<=8;i++){if(m[8][i]===null)m[8][i]=0;if(m[i][8]===null)m[i][8]=0}for(let i=s-8;i<s;i++)if(m[8][i]===null)m[8][i]=0;for(let i=s-7;i<s;i++)if(m[i][8]===null)m[i][8]=0;m[s-8][8]=1;if(v>=7){const vb=VER_INFO[v];for(let i=0;i<6;i++)for(let j=0;j<3;j++){const bit=(vb>>(i*3+j))&1;m[s-11+j][i]=bit;m[i][s-11+j]=bit}}}
-
     function addFmtInfo(m,mask){const s=m.length,fb=FMT_M[mask];for(let i=0;i<15;i++){const bit=(fb>>(14-i))&1;if(i<8){const c=i<6?i:(i===6?7:8);m[8][c]=bit}else m[8][s-15+i]=bit;if(i<8)m[s-1-i][8]=bit;else{const r=i===8?7:(14-i);m[r][8]=bit}}}
-
     function placeData(m,bits){const s=m.length;let bi=0,up=true;for(let right=s-1;right>=1;right-=2){if(right===6)right=5;const rows=up?Array.from({length:s},(_,i)=>s-1-i):Array.from({length:s},(_,i)=>i);for(const row of rows)for(let c=0;c<2;c++){const col=right-c;if(m[row][col]!==null)continue;m[row][col]=bi<bits.length&&bits[bi]?1:0;bi++}up=!up}}
-
     const MASKS=[(r,c)=>(r+c)%2===0,(r,c)=>r%2===0,(r,c)=>c%3===0,(r,c)=>(r+c)%3===0,(r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2===0,(r,c)=>((r*c)%2+(r*c)%3)===0,(r,c)=>((r*c)%2+(r*c)%3)%2===0,(r,c)=>((r+c)%2+(r*c)%3)%2===0];
-
     function applyMask(m,res,mask){const s=m.length,fn=MASKS[mask];for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(res[r][c]===null&&fn(r,c))m[r][c]^=1}
-
     function penalty(m){const s=m.length;let p=0;for(let r=0;r<s;r++){let cnt=1;for(let c=1;c<s;c++){if(m[r][c]===m[r][c-1]){cnt++;if(cnt===5)p+=3;else if(cnt>5)p+=1}else cnt=1}}for(let c=0;c<s;c++){let cnt=1;for(let r=1;r<s;r++){if(m[r][c]===m[r-1][c]){cnt++;if(cnt===5)p+=3;else if(cnt>5)p+=1}else cnt=1}}for(let r=0;r<s-1;r++)for(let c=0;c<s-1;c++){const v=m[r][c];if(v===m[r][c+1]&&v===m[r+1][c]&&v===m[r+1][c+1])p+=3}let dk=0;for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(m[r][c]===1)dk++;const pct=(dk/(s*s))*100,p5=Math.floor(pct/5)*5;p+=Math.min(Math.abs(p5-50)/5,Math.abs(p5+5-50)/5)*10;return p}
-
     function buildBits(data,v){const bits=[];bits.push(0,1,0,0);const cb=v<=9?8:16;for(let i=cb-1;i>=0;i--)bits.push((data.length>>i)&1);for(const b of data)for(let i=7;i>=0;i--)bits.push((b>>i)&1);const total=totalDCW(v)*8,term=Math.min(4,total-bits.length);for(let i=0;i<term;i++)bits.push(0);while(bits.length%8!==0)bits.push(0);const pad=[0xEC,0x11];let pi=0;while(bits.length<total){const pb=pad[pi%2];for(let i=7;i>=0;i--)bits.push((pb>>i)&1);pi++}return bits}
-
     function bitsToBytes(bits){const bytes=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=(b<<1)|(bits[i+j]||0);bytes.push(b)}return new Uint8Array(bytes)}
-
-    function genEC(dataBytes,v){const ecPB=EC_CW_M[v],nb1=BLK1_M[v],nb2=BLK2_M[v],d1=DCW1_M[v],d2=DCW2_M[v];const gen=getGenPoly(ecPB);const dBlocks=[],eBlocks=[];let off=0;for(let i=0;i<nb1;i++){const blk=dataBytes.slice(off,off+d1);dBlocks.push(blk);off+=d1;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}for(let i=0;i<nb2;i++){const blk=dataBytes.slice(off,off+d2);dBlocks.push(blk);off+=d2;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}const tot=nb1+nb2,maxD=Math.max(d1,d2||0),inter=[];for(let i=0;i<maxD;i++)for(let j=0;j<tot;j++)if(i<dBlocks[j].length)inter.push(dBlocks[j][i]);for(let i=0;i<ecPB;i++)for(let j=0;j<tot;j++)inter.push(eBlocks[j][i]);const bits=[];for(const b of inter)for(let i=7;i>=0;i--)bits.push((b>>i)&1);let rem=0;if(v>=2&&v<=6)rem=7;else if(v>=14&&v<=20)rem=3;else if(v>=21&&v<=27)rem=4;else if(v>=28&&v<=34)rem=3;for(let i=0;i<rem;i++)bits.push(0);return bits}
+    function genEC(dataBytes,v){const ecPB=EC_CW_M[v],nb1=BLK1_M[v],nb2=BLK2_M[v],d1=DCW1_M[v],d2=DCW2_M[v];const gen=getGen(ecPB);const dBlocks=[],eBlocks=[];let off=0;for(let i=0;i<nb1;i++){const blk=dataBytes.slice(off,off+d1);dBlocks.push(blk);off+=d1;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}for(let i=0;i<nb2;i++){const blk=dataBytes.slice(off,off+d2);dBlocks.push(blk);off+=d2;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}const tot=nb1+nb2,maxD=Math.max(d1,d2||0),inter=[];for(let i=0;i<maxD;i++)for(let j=0;j<tot;j++)if(i<dBlocks[j].length)inter.push(dBlocks[j][i]);for(let i=0;i<ecPB;i++)for(let j=0;j<tot;j++)inter.push(eBlocks[j][i]);const bits=[];for(const b of inter)for(let i=7;i>=0;i--)bits.push((b>>i)&1);let rem=0;if(v>=2&&v<=6)rem=7;else if(v>=14&&v<=20)rem=3;else if(v>=21&&v<=27)rem=4;else if(v>=28&&v<=34)rem=3;for(let i=0;i<rem;i++)bits.push(0);return bits}
 
     function generate(text){
         const data=new TextEncoder().encode(text);
-        const v=getVer(data.length);
-        if(v<0)throw new Error('Too long');
-        const dataBits=buildBits(data,v);
-        const allBits=genEC(bitsToBytes(dataBits),v);
-        const s=modCnt(v);
-
-        const res=mkMatrix(v);
+        const v=getVer(data.length);if(v<0)throw new Error('Too long');
+        const dataBits=buildBits(data,v);const allBits=genEC(bitsToBytes(dataBits),v);const s=modCnt(v);
+        const res=mkM(v);
         addFinder(res,0,0);addFinder(res,0,s-7);addFinder(res,s-7,0);
         if(v>=2){const pos=ALIGN[v];for(const r of pos)for(const c of pos){if(r<=8&&c<=8)continue;if(r<=8&&c>=s-8)continue;if(r>=s-8&&c<=8)continue;addAlign(res,r,c)}}
         addTiming(res);reserveFmt(res,v);
-
         let bestM=null,bestP=Infinity;
-        for(let mask=0;mask<8;mask++){
-            const m=mkMatrix(v);
-            for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(res[r][c]!==null)m[r][c]=res[r][c];
-            placeData(m,allBits);applyMask(m,res,mask);addFmtInfo(m,mask);
-            const p=penalty(m);if(p<bestP){bestP=p;bestM=m}
-        }
+        for(let mask=0;mask<8;mask++){const m=mkM(v);for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(res[r][c]!==null)m[r][c]=res[r][c];placeData(m,allBits);applyMask(m,res,mask);addFmtInfo(m,mask);const p=penalty(m);if(p<bestP){bestP=p;bestM=m}}
         return bestM;
     }
 
     function render(canvas,matrix,modSize=10,quiet=4){
-        const s=matrix.length,total=(s+quiet*2)*modSize;
-        canvas.width=total;canvas.height=total;
-        const ctx=canvas.getContext('2d');
-        ctx.fillStyle='#FFFFFF';ctx.fillRect(0,0,total,total);
-        ctx.fillStyle='#000000';
+        const s=matrix.length,total=(s+quiet*2)*modSize;canvas.width=total;canvas.height=total;
+        const ctx=canvas.getContext('2d');ctx.fillStyle='#FFFFFF';ctx.fillRect(0,0,total,total);ctx.fillStyle='#000000';
         for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(matrix[r][c]===1)ctx.fillRect((c+quiet)*modSize,(r+quiet)*modSize,modSize,modSize);
     }
-
     return{generate,render};
 })();
 
@@ -573,18 +524,9 @@ const toastText=document.getElementById('toastText');
 let currentUrl='',highResCanvas=null;
 
 function t(key){return i18n[currentLang][key]||key}
-
 function isValidUrl(s){try{const u=new URL(s);return u.protocol==='http:'||u.protocol==='https:'}catch{return false}}
-
-function showError(msg){
-    const span=errorMsg.querySelector('[data-i18n]');
-    if(span)span.textContent=msg;
-    errorMsg.classList.add('visible');
-    urlInput.classList.add('error');
-}
-
+function showError(msg){const span=errorMsg.querySelector('[data-i18n]');if(span)span.textContent=msg;errorMsg.classList.add('visible');urlInput.classList.add('error')}
 function hideError(){errorMsg.classList.remove('visible');urlInput.classList.remove('error')}
-
 function showToast(text){toastText.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500)}
 
 function generateQR(){
@@ -592,26 +534,20 @@ function generateQR(){
     if(!url){showError(t('errorEmpty'));return}
     if(!/^https?:\/\//i.test(url)){url='https://'+url;urlInput.value=url}
     if(!isValidUrl(url)){showError(t('errorDefault'));return}
-
     hideError();currentUrl=url;
     generateBtn.classList.add('loading');
     generateBtn.querySelector('[data-i18n="generateBtn"]').textContent=t('generating');
-
     setTimeout(()=>{
         try{
             const matrix=QRCode.generate(url);
             QRCode.render(qrCanvas,matrix,8,4);
-
             highResCanvas=document.createElement('canvas');
             const ms=Math.floor(1024/(matrix.length+8));
             QRCode.render(highResCanvas,matrix,ms,4);
-
             displayUrl.textContent=url;
             resultArea.classList.add('visible');
             setTimeout(()=>resultArea.scrollIntoView({behavior:'smooth',block:'center'}),100);
-        }catch(e){
-            showError(t('errorTooLong'));
-        }
+        }catch(e){showError(t('errorTooLong'))}
         generateBtn.classList.remove('loading');
         generateBtn.querySelector('[data-i18n="generateBtn"]').textContent=t('generateBtn');
     },400);
@@ -619,16 +555,13 @@ function generateQR(){
 
 function downloadQR(){
     if(!highResCanvas)return;
-    const a=document.createElement('a');
-    a.download='qr-code.png';a.href=highResCanvas.toDataURL('image/png');a.click();
+    const a=document.createElement('a');a.download='qr-code.png';a.href=highResCanvas.toDataURL('image/png');a.click();
     showToast(t('toastDownload'));
 }
 
 async function copyUrl(){
     if(!currentUrl)return;
-    try{await navigator.clipboard.writeText(currentUrl)}catch{
-        const ta=document.createElement('textarea');ta.value=currentUrl;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    }
+    try{await navigator.clipboard.writeText(currentUrl)}catch{const ta=document.createElement('textarea');ta.value=currentUrl;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}
     showToast(t('toastCopy'));
 }
 
@@ -638,6 +571,13 @@ copyBtn.addEventListener('click',copyUrl);
 urlInput.addEventListener('keydown',e=>{if(e.key==='Enter')generateQR()});
 urlInput.addEventListener('input',hideError);
 urlInput.focus();
+
+// ==========================================
+// Trigger AdSense ads
+// ==========================================
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
+(adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 <script type="application/ld+json">

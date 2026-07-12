@@ -3,594 +3,665 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR扫描王 - Free Online QR Code Generator | URL to QR Code Instantly</title>
-    <meta name="description" content="QR扫描王 is a free online QR code generator. No sign-up needed — just enter a URL and instantly generate a high-quality QR code. Download as PNG.">
-    <meta name="keywords" content="QR code generator, free QR code, URL to QR code, online QR code maker, 二维码生成器, 免费二维码">
+    <title>QR扫描王 - Free Online QR Code Generator | URL, Text, Phone, WiFi to QR</title>
+    <meta name="description" content="QR扫描王 is a free online QR code generator. Generate QR codes from URLs, text, phone numbers, WeChat IDs, and WiFi credentials. Download as PNG instantly.">
+    <meta name="keywords" content="QR code generator, free QR code, URL to QR code, WiFi QR code, text QR code, phone QR code, 二维码生成器, WiFi二维码">
     <meta name="robots" content="index, follow">
-    <meta name="author" content="QR扫描王">
     <meta property="og:title" content="QR扫描王 - Free Online QR Code Generator">
-    <meta property="og:description" content="Enter any URL and instantly generate a high-quality QR code. Download as PNG for free.">
+    <meta property="og:description" content="Generate QR codes from URLs, text, phone numbers, WeChat, and WiFi. Download as PNG for free.">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
-    <link rel="canonical" href="#">
-
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1794897684778209"
-         crossorigin="anonymous"></script>
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1794897684778209" crossorigin="anonymous"></script>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        :root{
-            --primary:#6C5CE7;--primary-dark:#5A4BD1;--primary-light:#A29BFE;
-            --accent:#00CEC9;--bg:#0F0E17;--bg-card:#1A1927;--bg-input:#232136;
-            --text:#FFFFFE;--text-secondary:#A7A9BE;--border:#2E2C42;
-            --success:#00B894;--glow:rgba(108,92,231,0.3)
-        }
-        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
-
-        .bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;pointer-events:none}
-        .bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:float 20s ease-in-out infinite}
-        .bg-orb:nth-child(1){width:600px;height:600px;background:var(--primary);top:-200px;right:-200px}
-        .bg-orb:nth-child(2){width:400px;height:400px;background:var(--accent);bottom:-100px;left:-100px;animation-delay:-7s}
-        .bg-orb:nth-child(3){width:300px;height:300px;background:var(--primary-light);top:50%;left:50%;animation-delay:-14s}
-        @keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.05)}66%{transform:translate(-20px,20px) scale(.95)}}
-
-        .grid-pattern{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(108,92,231,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(108,92,231,.03) 1px,transparent 1px);background-size:60px 60px}
-
-        header{position:relative;z-index:10;padding:20px 0;border-bottom:1px solid var(--border);background:rgba(15,14,23,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-        .header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
-        .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-        .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;position:relative}
-        .logo-icon svg{position:relative;z-index:1;width:22px;height:22px}
-        .logo-text{font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--text),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-
-        .header-right{display:flex;align-items:center;gap:12px}
-        .header-badge{font-size:12px;color:var(--accent);background:rgba(0,206,201,.1);border:1px solid rgba(0,206,201,.2);padding:4px 12px;border-radius:20px;font-weight:500}
-
-        .lang-switch{display:flex;background:var(--bg-input);border:1px solid var(--border);border-radius:10px;overflow:hidden}
-        .lang-btn{padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all .25s ease;color:var(--text-secondary);background:transparent}
-        .lang-btn.active{background:var(--primary);color:#fff}
-        .lang-btn:hover:not(.active){background:rgba(108,92,231,.15);color:var(--text)}
-
-        main{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;padding:60px 24px 80px}
-
-        .hero{text-align:center;max-width:700px;margin-bottom:50px}
-        .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--primary-light);background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.2);padding:6px 16px;border-radius:20px;margin-bottom:24px;font-weight:500}
-        .hero-badge .dot{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s ease-in-out infinite}
-        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-
-        h1{font-size:clamp(32px,6vw,52px);font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-.02em}
-        h1 .gradient{background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-        .hero-desc{font-size:17px;color:var(--text-secondary);line-height:1.7;max-width:520px;margin:0 auto}
-
-        .generator-card{width:100%;max-width:580px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px;position:relative;overflow:hidden}
-        .generator-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--primary),var(--accent),transparent);opacity:.5}
-
-        .card-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-        .card-header-icon{width:36px;height:36px;background:rgba(108,92,231,.15);border-radius:10px;display:flex;align-items:center;justify-content:center}
-        .card-header-icon svg{width:18px;height:18px;color:var(--primary-light)}
-        h2{font-size:18px;font-weight:600}
-
-        .input-group{position:relative;margin-bottom:20px}
-        .input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-secondary);z-index:2;display:flex;align-items:center}
-        .input-icon svg{width:18px;height:18px}
-        .url-input{width:100%;padding:16px 16px 16px 48px;background:var(--bg-input);border:2px solid var(--border);border-radius:14px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all .3s ease}
-        .url-input::placeholder{color:#555370}
-        .url-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--glow);background:rgba(35,33,54,.8)}
-        .url-input.error{border-color:#FF6B6B;box-shadow:0 0 0 4px rgba(255,107,107,.15)}
-
-        .error-message{display:none;align-items:center;gap:6px;color:#FF6B6B;font-size:13px;margin-top:8px;padding-left:4px}
-        .error-message.visible{display:flex}
-        .error-message svg{width:14px;height:14px;flex-shrink:0}
-
-        .generate-btn{width:100%;padding:16px 24px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
-        .generate-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--primary-dark),#4834B5);opacity:0;transition:opacity .3s ease}
-        .generate-btn:hover::before{opacity:1}
-        .generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--glow)}
-        .generate-btn:active{transform:translateY(0)}
-        .generate-btn span,.generate-btn svg{position:relative;z-index:1}
-        .generate-btn svg{width:20px;height:20px}
-        .generate-btn.loading{pointer-events:none}
-        .generate-btn .spinner{display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
-        .generate-btn.loading .spinner{display:block}
-        .generate-btn.loading .btn-icon{display:none}
-        @keyframes spin{to{transform:rotate(360deg)}}
-
-        .result-area{margin-top:32px;display:none;animation:slideUp .5s ease}
-        .result-area.visible{display:block}
-        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-
-        .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:32px}
-
-        .qr-preview{display:flex;flex-direction:column;align-items:center;gap:24px}
-        .qr-frame{background:#fff;padding:20px;border-radius:16px;box-shadow:0 4px 30px rgba(0,0,0,.3)}
-        .qr-frame canvas{display:block;width:200px;height:200px}
-
-        .qr-url-display{width:100%;display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-input);border-radius:10px;font-size:13px;color:var(--text-secondary);overflow:hidden}
-        .qr-url-display svg{flex-shrink:0;width:14px;height:14px;color:var(--success)}
-        .qr-url-display span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-        .action-buttons{display:flex;gap:12px;width:100%}
-        .download-btn{flex:1;padding:14px 20px;background:linear-gradient(135deg,var(--accent),#00B894);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-        .download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,206,201,.3)}
-        .download-btn:active{transform:translateY(0)}
-        .download-btn svg{width:18px;height:18px}
-
-        .copy-btn{padding:14px 20px;background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}
-        .copy-btn:hover{background:rgba(35,33,54,.8);border-color:var(--primary)}
-        .copy-btn svg{width:18px;height:18px}
-
-        /* Ad Slots */
-        .ad-slot{width:100%;max-width:580px;margin:24px 0;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center}
-        .ad-slot-wide{max-width:900px}
-
-        .features{max-width:900px;width:100%;margin-top:80px}
-        .features>h2{text-align:center;font-size:28px;margin-bottom:40px}
-        .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .feature-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s ease}
-        .feature-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 8px 30px var(--glow)}
-        .feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
-        .feature-icon.purple{background:rgba(108,92,231,.15)}
-        .feature-icon.teal{background:rgba(0,206,201,.15)}
-        .feature-icon.green{background:rgba(0,184,148,.15)}
-        .feature-card h3{font-size:16px;font-weight:600;margin-bottom:8px}
-        .feature-card p{font-size:14px;color:var(--text-secondary);line-height:1.6}
-
-        .how-it-works{max-width:700px;width:100%;margin-top:80px;text-align:center}
-        .how-it-works>h2{font-size:28px;margin-bottom:40px}
-        .steps{display:flex;justify-content:center;gap:40px}
-        .step{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1}
-        .step-number{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
-        .step h3{font-size:15px;font-weight:600}
-        .step p{font-size:13px;color:var(--text-secondary);line-height:1.5}
-        .step-connector{display:flex;align-items:center;padding-top:12px}
-        .step-connector svg{width:24px;height:24px;color:var(--border)}
-
-        .seo-content{max-width:700px;width:100%;margin-top:80px;text-align:center}
-        .seo-content h2{font-size:24px;margin-bottom:16px}
-        .seo-content p{font-size:15px;color:var(--text-secondary);line-height:1.8}
-
-        footer{position:relative;z-index:10;text-align:center;padding:24px;border-top:1px solid var(--border);background:rgba(15,14,23,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-        footer p{font-size:13px;color:var(--text-secondary)}
-
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:12px;font-size:14px;font-weight:500;z-index:1000;transition:transform .4s ease;display:flex;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
-        .toast.show{transform:translateX(-50%) translateY(0)}
-        .toast svg{width:18px;height:18px;color:var(--success)}
-
-        .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-        @media(max-width:768px){
-            main{padding:40px 16px 60px}
-            .generator-card{padding:24px;border-radius:16px}
-            .features-grid{grid-template-columns:1fr}
-            .steps{flex-direction:column;gap:24px}
-            .step-connector{display:none}
-            .header-badge{display:none}
-            .action-buttons{flex-direction:column}
-            .hero{margin-bottom:36px}
-            .features,.how-it-works,.seo-content{margin-top:60px}
-        }
-        @media(max-width:480px){
-            .url-input{font-size:14px;padding:14px 14px 14px 44px}
-            .generate-btn{padding:14px 20px;font-size:15px}
-            .qr-frame canvas{width:180px;height:180px}
-        }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6C5CE7;--primary-dark:#5A4BD1;--primary-light:#A29BFE;--accent:#00CEC9;--bg:#0F0E17;--bg-card:#1A1927;--bg-input:#232136;--text:#FFFFFE;--text-secondary:#A7A9BE;--border:#2E2C42;--success:#00B894;--glow:rgba(108,92,231,0.3)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+.bg-animation{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden;pointer-events:none}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:float 20s ease-in-out infinite}
+.bg-orb:nth-child(1){width:600px;height:600px;background:var(--primary);top:-200px;right:-200px}
+.bg-orb:nth-child(2){width:400px;height:400px;background:var(--accent);bottom:-100px;left:-100px;animation-delay:-7s}
+.bg-orb:nth-child(3){width:300px;height:300px;background:var(--primary-light);top:50%;left:50%;animation-delay:-14s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-30px) scale(1.05)}66%{transform:translate(-20px,20px) scale(.95)}}
+.grid-pattern{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(108,92,231,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(108,92,231,.03) 1px,transparent 1px);background-size:60px 60px}
+header{position:relative;z-index:10;padding:20px 0;border-bottom:1px solid var(--border);background:rgba(15,14,23,.8);backdrop-filter:blur(20px)}
+.header-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:22px;height:22px}
+.logo-text{font-size:20px;font-weight:700;background:linear-gradient(135deg,var(--text),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-right{display:flex;align-items:center;gap:12px}
+.header-badge{font-size:12px;color:var(--accent);background:rgba(0,206,201,.1);border:1px solid rgba(0,206,201,.2);padding:4px 12px;border-radius:20px;font-weight:500}
+.lang-switch{display:flex;background:var(--bg-input);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.lang-btn{padding:6px 14px;font-size:12px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all .25s ease;color:var(--text-secondary);background:transparent}
+.lang-btn.active{background:var(--primary);color:#fff}
+.lang-btn:hover:not(.active){background:rgba(108,92,231,.15);color:var(--text)}
+main{position:relative;z-index:10;flex:1;display:flex;flex-direction:column;align-items:center;padding:60px 24px 80px}
+.hero{text-align:center;max-width:700px;margin-bottom:50px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--primary-light);background:rgba(108,92,231,.1);border:1px solid rgba(108,92,231,.2);padding:6px 16px;border-radius:20px;margin-bottom:24px;font-weight:500}
+.hero-badge .dot{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+h1{font-size:clamp(32px,6vw,52px);font-weight:800;line-height:1.15;margin-bottom:20px;letter-spacing:-.02em}
+h1 .gradient{background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:17px;color:var(--text-secondary);line-height:1.7;max-width:560px;margin:0 auto}
+.generator-card{width:100%;max-width:580px;background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:36px;position:relative;overflow:hidden}
+.generator-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--primary),var(--accent),transparent);opacity:.5}
+.tabs{display:flex;gap:4px;margin-bottom:28px;background:var(--bg-input);border-radius:14px;padding:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;min-width:0;padding:10px 8px;border:none;background:transparent;color:var(--text-secondary);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border-radius:10px;transition:all .25s ease;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn:hover:not(.active){color:var(--text);background:rgba(108,92,231,.08)}
+.tab-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 12px var(--glow)}
+.tab-btn svg{width:16px;height:16px;flex-shrink:0}
+.tab-btn .tab-label{overflow:hidden;text-overflow:ellipsis}
+.form-panel{display:none;animation:fadeIn .3s ease}
+.form-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.input-group{position:relative;margin-bottom:16px}
+.input-group label{display:block;font-size:13px;font-weight:500;color:var(--text-secondary);margin-bottom:6px}
+.input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-secondary);z-index:2;display:flex;align-items:center;pointer-events:none}
+.input-icon.top-align{top:14px;transform:none}
+.input-icon svg{width:18px;height:18px}
+.url-input,.text-input,.field-input{width:100%;padding:14px 16px 14px 48px;background:var(--bg-input);border:2px solid var(--border);border-radius:14px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all .3s ease}
+.url-input::placeholder,.text-input::placeholder,.field-input::placeholder{color:#555370}
+.url-input:focus,.text-input:focus,.field-input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--glow);background:rgba(35,33,54,.8)}
+.url-input.error,.text-input.error,.field-input.error{border-color:#FF6B6B;box-shadow:0 0 0 4px rgba(255,107,107,.15)}
+textarea.text-input{min-height:100px;resize:vertical;padding-top:14px;line-height:1.5}
+.select-wrapper{position:relative}
+.select-wrapper select{width:100%;padding:14px 40px 14px 48px;background:var(--bg-input);border:2px solid var(--border);border-radius:14px;color:var(--text);font-size:15px;font-family:inherit;outline:none;transition:all .3s ease;appearance:none;-webkit-appearance:none;cursor:pointer}
+.select-wrapper select:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--glow)}
+.select-wrapper .select-arrow{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--text-secondary);pointer-events:none}
+.select-wrapper .select-arrow svg{width:16px;height:16px}
+.select-wrapper .input-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-secondary);z-index:2;display:flex;pointer-events:none}
+.select-wrapper .input-icon svg{width:18px;height:18px}
+.error-message{display:none;align-items:center;gap:6px;color:#FF6B6B;font-size:13px;margin-top:6px;padding-left:4px}
+.error-message.visible{display:flex}
+.error-message svg{width:14px;height:14px;flex-shrink:0}
+.generate-btn{width:100%;padding:16px 24px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;margin-top:4px}
+.generate-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--primary-dark),#4834B5);opacity:0;transition:opacity .3s ease}
+.generate-btn:hover::before{opacity:1}
+.generate-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px var(--glow)}
+.generate-btn:active{transform:translateY(0)}
+.generate-btn span,.generate-btn svg{position:relative;z-index:1}
+.generate-btn svg{width:20px;height:20px}
+.generate-btn.loading{pointer-events:none}
+.generate-btn .spinner{display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+.generate-btn.loading .spinner{display:block}
+.generate-btn.loading .btn-icon{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result-area{margin-top:32px;display:none;animation:slideUp .5s ease}
+.result-area.visible{display:block}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:32px}
+.qr-preview{display:flex;flex-direction:column;align-items:center;gap:24px}
+.qr-frame{background:#fff;padding:20px;border-radius:16px;box-shadow:0 4px 30px rgba(0,0,0,.3)}
+.qr-frame canvas{display:block;width:200px;height:200px}
+.qr-url-display{width:100%;display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--bg-input);border-radius:10px;font-size:13px;color:var(--text-secondary);overflow:hidden}
+.qr-url-display svg{flex-shrink:0;width:14px;height:14px;color:var(--success)}
+.qr-url-display span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.action-buttons{display:flex;gap:12px;width:100%}
+.download-btn{flex:1;padding:14px 20px;background:linear-gradient(135deg,var(--accent),#00B894);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}
+.download-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,206,201,.3)}
+.download-btn:active{transform:translateY(0)}
+.download-btn svg{width:18px;height:18px}
+.copy-btn{padding:14px 20px;background:var(--bg-input);color:var(--text);border:1px solid var(--border);border-radius:12px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .3s ease;display:flex;align-items:center;justify-content:center;gap:8px}
+.copy-btn:hover{background:rgba(35,33,54,.8);border-color:var(--primary)}
+.copy-btn svg{width:18px;height:18px}
+.ad-slot{width:100%;max-width:580px;margin:24px 0;text-align:center;min-height:90px;display:flex;align-items:center;justify-content:center}
+.ad-slot-wide{max-width:900px}
+.features{max-width:900px;width:100%;margin-top:80px}
+.features>h2{text-align:center;font-size:28px;margin-bottom:40px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s ease}
+.feature-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 8px 30px var(--glow)}
+.feature-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:22px}
+.feature-icon.purple{background:rgba(108,92,231,.15)}
+.feature-icon.teal{background:rgba(0,206,201,.15)}
+.feature-icon.green{background:rgba(0,184,148,.15)}
+.feature-icon.orange{background:rgba(253,203,110,.15)}
+.feature-icon.pink{background:rgba(255,107,107,.15)}
+.feature-card h3{font-size:16px;font-weight:600;margin-bottom:8px}
+.feature-card p{font-size:14px;color:var(--text-secondary);line-height:1.6}
+.how-it-works{max-width:700px;width:100%;margin-top:80px;text-align:center}
+.how-it-works>h2{font-size:28px;margin-bottom:40px}
+.steps{display:flex;justify-content:center;gap:40px}
+.step{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1}
+.step-number{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700}
+.step h3{font-size:15px;font-weight:600}
+.step p{font-size:13px;color:var(--text-secondary);line-height:1.5}
+.step-connector{display:flex;align-items:center;padding-top:12px}
+.step-connector svg{width:24px;height:24px;color:var(--border)}
+.seo-content{max-width:700px;width:100%;margin-top:80px;text-align:center}
+.seo-content h2{font-size:24px;margin-bottom:16px}
+.seo-content p{font-size:15px;color:var(--text-secondary);line-height:1.8}
+footer{position:relative;z-index:10;text-align:center;padding:24px;border-top:1px solid var(--border);background:rgba(15,14,23,.8);backdrop-filter:blur(20px)}
+footer p{font-size:13px;color:var(--text-secondary)}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:12px;font-size:14px;font-weight:500;z-index:1000;transition:transform .4s ease;display:flex;align-items:center;gap:8px;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast svg{width:18px;height:18px;color:var(--success)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pw-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-secondary);cursor:pointer;padding:4px;display:flex;align-items:center;transition:color .2s;z-index:3}
+.pw-toggle:hover{color:var(--text)}
+.pw-toggle svg{width:18px;height:18px}
+@media(max-width:768px){main{padding:40px 16px 60px}.generator-card{padding:24px;border-radius:16px}.features-grid{grid-template-columns:1fr 1fr}.steps{flex-direction:column;gap:24px}.step-connector{display:none}.header-badge{display:none}.action-buttons{flex-direction:column}.hero{margin-bottom:36px}.features,.how-it-works,.seo-content{margin-top:60px}.tab-btn{padding:10px 6px;font-size:12px}}
+@media(max-width:480px){.url-input,.text-input,.field-input{font-size:14px;padding:12px 12px 12px 44px}.generate-btn{padding:14px 20px;font-size:15px}.qr-frame canvas{width:180px;height:180px}.features-grid{grid-template-columns:1fr}.tab-btn .tab-label{display:none}.tab-btn svg{width:20px;height:20px}.tab-btn{padding:10px 12px}}
     </style>
 </head>
 <body>
-
 <div class="bg-animation" aria-hidden="true"><div class="bg-orb"></div><div class="bg-orb"></div><div class="bg-orb"></div></div>
 <div class="grid-pattern" aria-hidden="true"></div>
 
 <header role="banner">
-    <div class="header-inner">
-        <a href="#" class="logo" aria-label="QR扫描王 Home">
-            <div class="logo-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="21" x2="21" y2="21"/></svg>
-            </div>
-            <span class="logo-text">QR扫描王</span>
-        </a>
-        <div class="header-right">
-            <span class="header-badge" data-i18n="badge">✨ Free Forever</span>
-            <div class="lang-switch">
-                <button class="lang-btn active" data-lang="en" onclick="switchLang('en')">EN</button>
-                <button class="lang-btn" data-lang="zh" onclick="switchLang('zh')">中文</button>
-            </div>
+<div class="header-inner">
+    <a href="#" class="logo" aria-label="QR扫描王 Home">
+        <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="21" x2="21" y2="21"/></svg></div>
+        <span class="logo-text">QR扫描王</span>
+    </a>
+    <div class="header-right">
+        <span class="header-badge" data-i18n="badge">✨ Free Forever</span>
+        <div class="lang-switch">
+            <button class="lang-btn active" data-lang="en" id="langEn">EN</button>
+            <button class="lang-btn" data-lang="zh" id="langZh">中文</button>
         </div>
     </div>
+</div>
 </header>
 
 <main role="main">
-    <section class="hero" aria-label="Introduction">
-        <div class="hero-badge"><span class="dot"></span><span data-i18n="heroBadge">Online Tool · No Sign-up · Ready to Use</span></div>
-        <h1><span data-i18n="heroTitle1">Instantly Convert URLs to</span><br><span class="gradient" data-i18n="heroTitle2">High-Quality QR Codes</span></h1>
-        <p class="hero-desc" data-i18n="heroDesc">Enter any URL and generate a crisp QR code image in one click. Free to download as high-resolution PNG — no account required.</p>
-    </section>
+<section class="hero" aria-label="Introduction">
+    <div class="hero-badge"><span class="dot"></span><span data-i18n="heroBadge">Online Tool · No Sign-up · Ready to Use</span></div>
+    <h1><span data-i18n="heroTitle1">Instantly Generate</span><br><span class="gradient" data-i18n="heroTitle2">QR Codes for Anything</span></h1>
+    <p class="hero-desc" data-i18n="heroDesc">URLs, text, phone numbers, WeChat IDs, WiFi credentials — generate crisp QR codes in one click. Free HD PNG download, no account required.</p>
+</section>
 
-    <section class="generator-card" aria-label="QR Code Generator">
-        <div class="card-header">
-            <div class="card-header-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-            <h2 data-i18n="cardTitle">Enter URL to Generate QR Code</h2>
-        </div>
+<section class="generator-card" aria-label="QR Code Generator">
+    <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="url" id="tabUrl" role="tab" aria-selected="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span class="tab-label" data-i18n="tabUrl">URL</span>
+        </button>
+        <button class="tab-btn" data-tab="text" id="tabText" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="tab-label" data-i18n="tabText">Text</span>
+        </button>
+        <button class="tab-btn" data-tab="phone" id="tabPhone" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span class="tab-label" data-i18n="tabPhone">Phone</span>
+        </button>
+        <button class="tab-btn" data-tab="wechat" id="tabWechat" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <span class="tab-label" data-i18n="tabWechat">WeChat</span>
+        </button>
+        <button class="tab-btn" data-tab="wifi" id="tabWifi" role="tab" aria-selected="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <span class="tab-label" data-i18n="tabWifi">WiFi</span>
+        </button>
+    </div>
 
+    <!-- URL Panel -->
+    <div class="form-panel active" id="panel-url" role="tabpanel">
         <div class="input-group">
             <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-            <label for="urlInput" class="sr-only">Enter URL</label>
-            <input type="url" id="urlInput" class="url-input" data-i18n-placeholder="inputPlaceholder" placeholder="Enter a URL, e.g. https://example.com" autocomplete="url" spellcheck="false" aria-describedby="errorMsg">
-            <div class="error-message" id="errorMsg" role="alert">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <span data-i18n="errorDefault">Please enter a valid URL starting with http:// or https://</span>
-            </div>
+            <input type="url" id="urlInput" class="url-input" data-i18n-placeholder="inputUrl" placeholder="Enter a URL, e.g. https://example.com" autocomplete="url" spellcheck="false">
         </div>
-
-        <button class="generate-btn" id="generateBtn" type="button" aria-label="Generate QR Code">
-            <div class="spinner"></div>
-            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="21" x2="21" y2="21"/></svg>
-            <span data-i18n="generateBtn">Generate QR Code</span>
-        </button>
-
-        <div class="result-area" id="resultArea" aria-live="polite">
-            <div class="divider"></div>
-            <div class="qr-preview">
-                <div class="qr-frame"><canvas id="qrCanvas" width="400" height="400"></canvas></div>
-                <div class="qr-url-display">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                    <span id="displayUrl"></span>
-                </div>
-                <div class="action-buttons">
-                    <button class="download-btn" id="downloadBtn" type="button" aria-label="Download QR Code PNG">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                        <span data-i18n="downloadBtn">Download PNG</span>
-                    </button>
-                    <button class="copy-btn" id="copyBtn" type="button" aria-label="Copy URL">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                        <span data-i18n="copyBtn">Copy</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ad Slot 1: After Generator -->
-    <div class="ad-slot" aria-label="Advertisement">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1794897684778209"
-             data-ad-slot="auto"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
     </div>
 
-    <section class="features" aria-label="Features">
-        <h2><span data-i18n="featuresTitle1">Why Choose </span><span class="gradient" style="background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">QR扫描王</span></h2>
-        <div class="features-grid">
-            <article class="feature-card">
-                <div class="feature-icon purple">⚡</div>
-                <h3 data-i18n="feat1Title">Lightning Fast</h3>
-                <p data-i18n="feat1Desc">Generated locally in your browser — no server wait time, instant QR code creation in milliseconds.</p>
-            </article>
-            <article class="feature-card">
-                <div class="feature-icon teal">🔒</div>
-                <h3 data-i18n="feat2Title">100% Private</h3>
-                <p data-i18n="feat2Desc">All data is processed locally in your browser. Nothing is uploaded to any server — your privacy is fully protected.</p>
-            </article>
-            <article class="feature-card">
-                <div class="feature-icon green">📱</div>
-                <h3 data-i18n="feat3Title">HD Download</h3>
-                <p data-i18n="feat3Desc">Export as a 1:1 square high-resolution PNG image, perfect for printing, sharing, and social media.</p>
-            </article>
+    <!-- Text Panel -->
+    <div class="form-panel" id="panel-text" role="tabpanel">
+        <div class="input-group">
+            <div class="input-icon top-align"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+            <textarea id="textInput" class="text-input" data-i18n-placeholder="inputText" placeholder="Enter any text content..." rows="4"></textarea>
         </div>
-    </section>
-
-    <!-- Ad Slot 2: Between Features and How-it-works -->
-    <div class="ad-slot ad-slot-wide" aria-label="Advertisement">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1794897684778209"
-             data-ad-slot="auto"
-             data-ad-format="horizontal"
-             data-full-width-responsive="true"></ins>
     </div>
 
-    <section class="how-it-works" aria-label="How it works">
-        <h2 data-i18n="howTitle">Three Simple Steps</h2>
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3 data-i18n="step1Title">Enter URL</h3>
-                <p data-i18n="step1Desc">Paste or type the target URL in the input box</p>
-            </div>
-            <div class="step-connector" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3 data-i18n="step2Title">Generate</h3>
-                <p data-i18n="step2Desc">Click the button and preview your QR code instantly</p>
-            </div>
-            <div class="step-connector" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3 data-i18n="step3Title">Download</h3>
-                <p data-i18n="step3Desc">One-click download as a high-res PNG image</p>
+    <!-- Phone Panel -->
+    <div class="form-panel" id="panel-phone" role="tabpanel">
+        <div class="input-group">
+            <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+            <input type="tel" id="phoneInput" class="url-input" data-i18n-placeholder="inputPhone" placeholder="Enter phone number, e.g. +86 13800138000" autocomplete="tel">
+        </div>
+    </div>
+
+    <!-- WeChat Panel -->
+    <div class="form-panel" id="panel-wechat" role="tabpanel">
+        <div class="input-group">
+            <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <input type="text" id="wechatInput" class="url-input" data-i18n-placeholder="inputWechat" placeholder="Enter WeChat ID" spellcheck="false">
+        </div>
+    </div>
+
+    <!-- WiFi Panel -->
+    <div class="form-panel" id="panel-wifi" role="tabpanel">
+        <div class="input-group">
+            <label data-i18n="wifiName">Network Name (SSID)</label>
+            <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg></div>
+            <input type="text" id="wifiSsid" class="url-input" data-i18n-placeholder="inputWifiSsid" placeholder="Enter WiFi network name" spellcheck="false">
+        </div>
+        <div class="input-group" style="position:relative">
+            <label data-i18n="wifiPass">Password</label>
+            <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <input type="password" id="wifiPass" class="url-input" data-i18n-placeholder="inputWifiPass" placeholder="Enter WiFi password" style="padding-right:48px">
+            <button class="pw-toggle" type="button" id="pwToggle" aria-label="Toggle password visibility">
+                <svg id="pwEyeOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg id="pwEyeClosed" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+        </div>
+        <div class="input-group">
+            <label data-i18n="wifiEncrypt">Encryption</label>
+            <div class="select-wrapper">
+                <div class="input-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                <select id="wifiEncrypt"><option value="WPA">WPA / WPA2</option><option value="WEP">WEP</option><option value="nopass" data-i18n-option="wifiNone">None</option></select>
+                <div class="select-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
-    </section>
-
-    <section class="seo-content" aria-label="About">
-        <h2 data-i18n="aboutTitle">About QR扫描王 Online QR Code Generator</h2>
-        <p data-i18n="aboutDesc">QR扫描王 is a completely free online QR code generation tool. Whether you need QR codes for websites, products, business cards, or social media, simply enter a URL and generate a high-quality QR code in seconds. Our tool works on all modern browsers, perfectly adapts to desktop and mobile, requires no software installation — just open and use. The generated QR codes are clear and reliable, suitable for both print and digital scenarios.</p>
-    </section>
-
-    <!-- Ad Slot 3: Before Footer -->
-    <div class="ad-slot" aria-label="Advertisement">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1794897684778209"
-             data-ad-slot="auto"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
     </div>
+
+    <div class="error-message" id="errorMsg" role="alert">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="errorText"></span>
+    </div>
+
+    <button class="generate-btn" id="generateBtn" type="button">
+        <div class="spinner"></div>
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="21" x2="21" y2="21"/></svg>
+        <span data-i18n="generateBtn">Generate QR Code</span>
+    </button>
+
+    <div class="result-area" id="resultArea" aria-live="polite">
+        <div class="divider"></div>
+        <div class="qr-preview">
+            <div class="qr-frame"><canvas id="qrCanvas" width="400" height="400"></canvas></div>
+            <div class="qr-url-display">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span id="displayUrl"></span>
+            </div>
+            <div class="action-buttons">
+                <button class="download-btn" id="downloadBtn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span data-i18n="downloadBtn">Download PNG</span>
+                </button>
+                <button class="copy-btn" id="copyBtn" type="button">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <span data-i18n="copyBtn">Copy</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="ad-slot" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1794897684778209" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+
+<section class="features" aria-label="Features">
+    <h2><span data-i18n="featuresTitle1">Why Choose </span><span class="gradient" style="background:linear-gradient(135deg,var(--primary-light),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">QR扫描王</span></h2>
+    <div class="features-grid">
+        <article class="feature-card"><div class="feature-icon purple">🔗</div><h3 data-i18n="feat1Title">URL & Text</h3><p data-i18n="feat1Desc">Convert any website link or text content into a scannable QR code instantly.</p></article>
+        <article class="feature-card"><div class="feature-icon teal">📱</div><h3 data-i18n="feat2Title">Phone & WeChat</h3><p data-i18n="feat2Desc">Generate QR codes for phone numbers and WeChat IDs — perfect for business cards.</p></article>
+        <article class="feature-card"><div class="feature-icon green">📶</div><h3 data-i18n="feat3Title">WiFi Sharing</h3><p data-i18n="feat3Desc">Create WiFi QR codes so guests can connect to your network with a single scan.</p></article>
+        <article class="feature-card"><div class="feature-icon orange">⚡</div><h3 data-i18n="feat4Title">Lightning Fast</h3><p data-i18n="feat4Desc">All processing happens locally in your browser — instant generation, zero server delay.</p></article>
+        <article class="feature-card"><div class="feature-icon pink">🔒</div><h3 data-i18n="feat5Title">100% Private</h3><p data-i18n="feat5Desc">No data ever leaves your device. Your URLs, passwords, and info stay completely private.</p></article>
+        <article class="feature-card"><div class="feature-icon purple">🖼️</div><h3 data-i18n="feat6Title">HD Download</h3><p data-i18n="feat6Desc">Export as 1:1 square high-resolution PNG, ideal for printing and digital sharing.</p></article>
+    </div>
+</section>
+
+<div class="ad-slot ad-slot-wide" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1794897684778209" data-ad-slot="auto" data-ad-format="horizontal" data-full-width-responsive="true"></ins></div>
+
+<section class="how-it-works" aria-label="How it works">
+    <h2 data-i18n="howTitle">Three Simple Steps</h2>
+    <div class="steps">
+        <div class="step"><div class="step-number">1</div><h3 data-i18n="step1Title">Choose Type</h3><p data-i18n="step1Desc">Select URL, Text, Phone, WeChat, or WiFi tab</p></div>
+        <div class="step-connector" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        <div class="step"><div class="step-number">2</div><h3 data-i18n="step2Title">Fill & Generate</h3><p data-i18n="step2Desc">Enter your content and click the generate button</p></div>
+        <div class="step-connector" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+        <div class="step"><div class="step-number">3</div><h3 data-i18n="step3Title">Download</h3><p data-i18n="step3Desc">Save your QR code as a high-res PNG image</p></div>
+    </div>
+</section>
+
+<section class="seo-content" aria-label="About">
+    <h2 data-i18n="aboutTitle">About QR扫描王 QR Code Generator</h2>
+    <p data-i18n="aboutDesc">QR扫描王 is a completely free, all-in-one online QR code generator. Create QR codes from URLs, plain text, phone numbers, WeChat IDs, and WiFi credentials — all in one place. Our tool runs entirely in your browser with no server uploads, works on all modern devices, and requires no installation. Generated QR codes are high-resolution and suitable for both print and digital use.</p>
+</section>
+
+<div class="ad-slot" aria-label="Advertisement"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1794897684778209" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
 </main>
 
-<footer role="contentinfo">
-    <p data-i18n="footer">© 2025 QR扫描王 — Free Online QR Code Generator | Fast · Secure · Easy</p>
-</footer>
+<footer role="contentinfo"><p data-i18n="footer">© 2025 QR扫描王 — Free Online QR Code Generator | Fast · Secure · Easy</p></footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
     <span id="toastText"></span>
 </div>
 
-<script>
-// ==========================================
-// i18n — Language System
-// ==========================================
-const i18n = {
-    en: {
-        badge: "✨ Free Forever",
-        heroBadge: "Online Tool · No Sign-up · Ready to Use",
-        heroTitle1: "Instantly Convert URLs to",
-        heroTitle2: "High-Quality QR Codes",
-        heroDesc: "Enter any URL and generate a crisp QR code image in one click. Free to download as high-resolution PNG — no account required.",
-        cardTitle: "Enter URL to Generate QR Code",
-        inputPlaceholder: "Enter a URL, e.g. https://example.com",
-        errorDefault: "Please enter a valid URL starting with http:// or https://",
-        errorEmpty: "Please enter a URL",
-        errorTooLong: "URL is too long to generate a QR code. Please shorten it and try again.",
-        generateBtn: "Generate QR Code",
-        generating: "Generating...",
-        downloadBtn: "Download PNG",
-        copyBtn: "Copy",
-        featuresTitle1: "Why Choose ",
-        feat1Title: "Lightning Fast",
-        feat1Desc: "Generated locally in your browser — no server wait time, instant QR code creation in milliseconds.",
-        feat2Title: "100% Private",
-        feat2Desc: "All data is processed locally in your browser. Nothing is uploaded to any server — your privacy is fully protected.",
-        feat3Title: "HD Download",
-        feat3Desc: "Export as a 1:1 square high-resolution PNG image, perfect for printing, sharing, and social media.",
-        howTitle: "Three Simple Steps",
-        step1Title: "Enter URL",
-        step1Desc: "Paste or type the target URL in the input box",
-        step2Title: "Generate",
-        step2Desc: "Click the button and preview your QR code instantly",
-        step3Title: "Download",
-        step3Desc: "One-click download as a high-res PNG image",
-        aboutTitle: "About QR扫描王 Online QR Code Generator",
-        aboutDesc: "QR扫描王 is a completely free online QR code generation tool. Whether you need QR codes for websites, products, business cards, or social media, simply enter a URL and generate a high-quality QR code in seconds. Our tool works on all modern browsers, perfectly adapts to desktop and mobile, requires no software installation — just open and use. The generated QR codes are clear and reliable, suitable for both print and digital scenarios.",
-        footer: "© 2025 QR扫描王 — Free Online QR Code Generator | Fast · Secure · Easy",
-        toastDownload: "QR code downloaded ✓",
-        toastCopy: "URL copied to clipboard ✓"
-    },
-    zh: {
-        badge: "✨ 永久免费",
-        heroBadge: "在线工具 · 无需注册 · 即开即用",
-        heroTitle1: "快速将网址转换为",
-        heroTitle2: "高清二维码",
-        heroDesc: "输入任意网址，一键生成清晰的二维码图片。支持下载高清 PNG，完全免费，打开即用。",
-        cardTitle: "输入网址生成二维码",
-        inputPlaceholder: "请输入网址，例如 https://example.com",
-        errorDefault: "请输入有效的网址（以 http:// 或 https:// 开头）",
-        errorEmpty: "请输入网址",
-        errorTooLong: "网址太长，无法生成二维码，请缩短后重试。",
-        generateBtn: "Generate QR Code",
-        generating: "生成中...",
-        downloadBtn: "下载 PNG 图片",
-        copyBtn: "复制",
-        featuresTitle1: "为什么选择 ",
-        feat1Title: "极速生成",
-        feat1Desc: "纯前端本地生成，无需等待服务器响应，毫秒级完成二维码创建。",
-        feat2Title: "隐私安全",
-        feat2Desc: "所有数据仅在浏览器本地处理，不上传任何信息到服务器，完全保护您的隐私。",
-        feat3Title: "高清下载",
-        feat3Desc: "生成 1:1 正方形高清 PNG 图片，适用于打印、分享、社交媒体等各种场景。",
-        howTitle: "三步完成",
-        step1Title: "输入网址",
-        step1Desc: "在输入框中粘贴或输入目标网址",
-        step2Title: "生成二维码",
-        step2Desc: "点击生成按钮，立即预览二维码",
-        step3Title: "下载使用",
-        step3Desc: "一键下载高清 PNG 二维码图片",
-        aboutTitle: "关于 QR扫描王 在线二维码生成器",
-        aboutDesc: "QR扫描王是一款完全免费的在线二维码生成工具。无论您需要为网站、产品、名片还是社交媒体创建二维码，只需输入网址即可在几秒内生成高质量的二维码图片。我们的工具支持所有现代浏览器，完美适配电脑和手机，无需安装任何软件，打开网页即可使用。生成的二维码清晰可靠，适用于各种印刷和数字场景。",
-        footer: "© 2025 QR扫描王 — 免费在线二维码生成器 | 快速 · 安全 · 好用",
-        toastDownload: "二维码已下载 ✓",
-        toastCopy: "网址已复制到剪贴板 ✓"
-    }
-};
+<!-- QR Code library via CDN (qrcode-generator by Kazuhiko Arase) -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 
-let currentLang = 'en';
+<script>
+/* ========================================
+   i18n
+   ======================================== */
+var i18n = {
+en: {
+    badge:"✨ Free Forever", heroBadge:"Online Tool · No Sign-up · Ready to Use",
+    heroTitle1:"Instantly Generate", heroTitle2:"QR Codes for Anything",
+    heroDesc:"URLs, text, phone numbers, WeChat IDs, WiFi credentials — generate crisp QR codes in one click. Free HD PNG download, no account required.",
+    tabUrl:"URL", tabText:"Text", tabPhone:"Phone", tabWechat:"WeChat", tabWifi:"WiFi",
+    inputUrl:"Enter a URL, e.g. https://example.com",
+    inputText:"Enter any text content...",
+    inputPhone:"Enter phone number, e.g. +86 13800138000",
+    inputWechat:"Enter WeChat ID",
+    inputWifiSsid:"Enter WiFi network name", inputWifiPass:"Enter WiFi password",
+    wifiName:"Network Name (SSID)", wifiPass:"Password", wifiEncrypt:"Encryption", wifiNone:"None",
+    errorEmpty:"Please fill in the required field",
+    errorUrl:"Please enter a valid URL starting with http:// or https://",
+    errorTooLong:"Content is too long to generate a QR code. Please shorten it.",
+    generateBtn:"Generate QR Code", generating:"Generating...",
+    downloadBtn:"Download PNG", copyBtn:"Copy",
+    featuresTitle1:"Why Choose ",
+    feat1Title:"URL & Text", feat1Desc:"Convert any website link or text content into a scannable QR code instantly.",
+    feat2Title:"Phone & WeChat", feat2Desc:"Generate QR codes for phone numbers and WeChat IDs — perfect for business cards.",
+    feat3Title:"WiFi Sharing", feat3Desc:"Create WiFi QR codes so guests can connect to your network with a single scan.",
+    feat4Title:"Lightning Fast", feat4Desc:"All processing happens locally in your browser — instant generation, zero server delay.",
+    feat5Title:"100% Private", feat5Desc:"No data ever leaves your device. Your URLs, passwords, and info stay completely private.",
+    feat6Title:"HD Download", feat6Desc:"Export as 1:1 square high-resolution PNG, ideal for printing and digital sharing.",
+    howTitle:"Three Simple Steps",
+    step1Title:"Choose Type", step1Desc:"Select URL, Text, Phone, WeChat, or WiFi tab",
+    step2Title:"Fill & Generate", step2Desc:"Enter your content and click the generate button",
+    step3Title:"Download", step3Desc:"Save your QR code as a high-res PNG image",
+    aboutTitle:"About QR扫描王 QR Code Generator",
+    aboutDesc:"QR扫描王 is a completely free, all-in-one online QR code generator. Create QR codes from URLs, plain text, phone numbers, WeChat IDs, and WiFi credentials — all in one place. Our tool runs entirely in your browser with no server uploads, works on all modern devices, and requires no installation. Generated QR codes are high-resolution and suitable for both print and digital use.",
+    footer:"© 2025 QR扫描王 — Free Online QR Code Generator | Fast · Secure · Easy",
+    toastDownload:"QR code downloaded ✓", toastCopy:"Copied to clipboard ✓",
+    prefix_url:"URL: ", prefix_text:"Text: ", prefix_phone:"tel: ", prefix_wechat:"WeChat: ", prefix_wifi:"WiFi: "
+},
+zh: {
+    badge:"✨ 永久免费", heroBadge:"在线工具 · 无需注册 · 即开即用",
+    heroTitle1:"一键生成", heroTitle2:"万物二维码",
+    heroDesc:"网址、文本、手机号、微信号、WiFi 信息 — 一键生成高清二维码。免费下载 PNG 图片，无需注册。",
+    tabUrl:"网址", tabText:"文本", tabPhone:"手机号", tabWechat:"微信", tabWifi:"WiFi",
+    inputUrl:"请输入网址，例如 https://example.com",
+    inputText:"请输入任意文本内容...",
+    inputPhone:"请输入手机号，例如 +86 13800138000",
+    inputWechat:"请输入微信号",
+    inputWifiSsid:"请输入 WiFi 名称", inputWifiPass:"请输入 WiFi 密码",
+    wifiName:"网络名称 (SSID)", wifiPass:"密码", wifiEncrypt:"加密方式", wifiNone:"无加密",
+    errorEmpty:"请填写必填内容",
+    errorUrl:"请输入有效的网址（以 http:// 或 https:// 开头）",
+    errorTooLong:"内容太长，无法生成二维码，请缩短后重试。",
+    generateBtn:"Generate QR Code", generating:"生成中...",
+    downloadBtn:"下载 PNG 图片", copyBtn:"复制",
+    featuresTitle1:"为什么选择 ",
+    feat1Title:"网址 & 文本", feat1Desc:"将任意网址或文本内容转换为可扫描的二维码。",
+    feat2Title:"手机号 & 微信", feat2Desc:"为手机号和微信号生成二维码，适合名片和宣传物料。",
+    feat3Title:"WiFi 分享", feat3Desc:"生成 WiFi 二维码，让访客扫码即可连接您的网络。",
+    feat4Title:"极速生成", feat4Desc:"纯前端本地处理，无需等待服务器，毫秒级生成。",
+    feat5Title:"隐私安全", feat5Desc:"所有数据仅在浏览器本地处理，不上传任何信息，完全保护隐私。",
+    feat6Title:"高清下载", feat6Desc:"导出 1:1 正方形高清 PNG 图片，适合印刷和数字分享。",
+    howTitle:"三步完成",
+    step1Title:"选择类型", step1Desc:"选择网址、文本、手机号、微信或 WiFi 标签",
+    step2Title:"填写生成", step2Desc:"输入内容后点击生成按钮",
+    step3Title:"下载使用", step3Desc:"一键下载高清 PNG 二维码图片",
+    aboutTitle:"关于 QR扫描王 二维码生成器",
+    aboutDesc:"QR扫描王是一款完全免费的全能在线二维码生成工具。支持网址、纯文本、手机号、微信号、WiFi 信息等多种类型一键生成二维码。工具完全在浏览器本地运行，不上传任何数据，支持所有现代设备，无需安装任何软件。生成的二维码高清可靠，适用于印刷和数字场景。",
+    footer:"© 2025 QR扫描王 — 免费在线二维码生成器 | 快速 · 安全 · 好用",
+    toastDownload:"二维码已下载 ✓", toastCopy:"已复制到剪贴板 ✓",
+    prefix_url:"网址: ", prefix_text:"文本: ", prefix_phone:"电话: ", prefix_wechat:"微信: ", prefix_wifi:"WiFi: "
+}};
+
+var currentLang = 'en';
+var currentTab = 'url';
+
+function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || key; }
 
 function switchLang(lang) {
     currentLang = lang;
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
     });
-    const strings = i18n[lang];
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.dataset.i18n;
-        if (strings[key]) el.textContent = strings[key];
+    var s = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var k = el.getAttribute('data-i18n');
+        if (s[k] !== undefined) el.textContent = s[k];
     });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-        const key = el.dataset.i18nPlaceholder;
-        if (strings[key]) el.placeholder = strings[key];
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+        var k = el.getAttribute('data-i18n-placeholder');
+        if (s[k] !== undefined) el.placeholder = s[k];
     });
-    localStorage.setItem('qr_lang', lang);
+    document.querySelectorAll('[data-i18n-option]').forEach(function(el) {
+        var k = el.getAttribute('data-i18n-option');
+        if (s[k] !== undefined) el.textContent = s[k];
+    });
+    try { localStorage.setItem('qr_lang', lang); } catch(e) {}
 }
 
-(function() {
-    const saved = localStorage.getItem('qr_lang');
-    if (saved && i18n[saved]) switchLang(saved);
-})();
+function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+        var isActive = b.getAttribute('data-tab') === tab;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    document.querySelectorAll('.form-panel').forEach(function(p) { p.classList.remove('active'); });
+    var panel = document.getElementById('panel-' + tab);
+    if (panel) panel.classList.add('active');
+    hideError();
+    var inp = panel ? panel.querySelector('input, textarea') : null;
+    if (inp) setTimeout(function() { inp.focus(); }, 100);
+}
 
+// Restore saved language
+try { var saved = localStorage.getItem('qr_lang'); if (saved && i18n[saved]) switchLang(saved); } catch(e) {}
 
-// ==========================================
-// QR Code Generator Engine
-// ==========================================
-const QRCode = (() => {
-    const GF256 = {
-        exp: new Uint8Array(512), log: new Uint8Array(256),
-        init() { let x=1; for(let i=0;i<255;i++){this.exp[i]=x;this.log[x]=i;x<<=1;if(x>=256)x^=0x11d} for(let i=255;i<512;i++)this.exp[i]=this.exp[i-255] },
-        multiply(a,b){if(a===0||b===0)return 0;return this.exp[this.log[a]+this.log[b]]}
-    };
-    GF256.init();
+/* ========================================
+   Tab click handlers (using addEventListener for reliability)
+   ======================================== */
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        switchTab(this.getAttribute('data-tab'));
+    });
+});
 
-    function polyMul(p1,p2){const r=new Uint8Array(p1.length+p2.length-1);for(let i=0;i<p1.length;i++)for(let j=0;j<p2.length;j++)r[i+j]^=GF256.multiply(p1[i],p2[j]);return r}
-    function polyMod(d,div){let r=new Uint8Array(d);while(r.length>=div.length){const c=r[0];if(c!==0)for(let i=0;i<div.length;i++)r[i]^=GF256.multiply(div[i],c);r=r.slice(1)}return r}
-    function getGen(deg){let g=new Uint8Array([1]);for(let i=0;i<deg;i++)g=polyMul(g,new Uint8Array([1,GF256.exp[i]]));return g}
+document.getElementById('langEn').addEventListener('click', function() { switchLang('en'); });
+document.getElementById('langZh').addEventListener('click', function() { switchLang('zh'); });
 
-    const CAP_M=[0,14,26,42,62,84,106,122,152,180,213,251,287,331,362,412,450,504,560,624,666,711,779,857,911,997,1059,1125,1190,1264,1370,1452,1538,1628,1722,1809,1911,1989,2099,2213,2331];
-    const EC_CW_M=[0,10,16,26,18,24,16,18,22,22,26,30,22,22,24,24,28,28,26,26,26,26,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28,28];
-    const BLK1_M=[0,1,1,1,2,2,4,4,2,3,4,1,6,8,4,5,7,10,9,3,3,17,17,4,6,8,19,22,3,21,19,2,10,14,14,12,6,29,13,40,18];
-    const BLK2_M=[0,0,0,0,0,0,0,0,2,2,1,4,2,1,5,5,3,1,4,11,13,0,6,18,16,14,4,3,23,7,10,29,23,21,23,26,34,14,32,7,31];
-    const DCW1_M=[0,16,28,44,32,46,27,31,38,36,43,50,36,37,40,41,45,46,43,44,41,42,46,47,45,47,46,45,45,45,47,46,46,46,47,47,46,46,45,47,46];
-    const DCW2_M=[0,0,0,0,0,0,0,0,39,37,44,51,37,38,41,42,46,47,44,45,42,0,47,48,46,48,47,46,46,46,48,47,47,47,48,48,47,47,46,48,47];
-    const ALIGN=[[],[],[6,18],[6,22],[6,26],[6,30],[6,34],[6,22,38],[6,24,42],[6,26,46],[6,28,50],[6,30,54],[6,32,58],[6,34,62],[6,26,46,66],[6,26,48,70],[6,26,50,74],[6,30,54,78],[6,30,56,82],[6,30,58,86],[6,34,62,90],[6,28,50,72,94],[6,26,50,74,98],[6,30,54,78,102],[6,28,54,80,106],[6,32,58,84,110],[6,30,58,86,114],[6,34,62,90,118],[6,26,50,74,98,122],[6,30,54,78,102,126],[6,26,52,78,104,130],[6,30,56,82,108,134],[6,34,60,86,112,138],[6,30,58,86,114,142],[6,34,62,90,118,146],[6,30,54,78,102,126,150],[6,24,50,76,102,128,154],[6,28,54,80,106,132,158],[6,32,58,84,110,136,162],[6,26,54,82,110,138,166],[6,30,58,86,114,142,170]];
-    const VER_INFO=[0,0,0,0,0,0,0,0x07C94,0x085BC,0x09A99,0x0A4D3,0x0BBF6,0x0C762,0x0D847,0x0E60D,0x0F928,0x10B78,0x1145D,0x12A17,0x13532,0x149A6,0x15683,0x168C9,0x177EC,0x18EC4,0x191E1,0x1AFAB,0x1B08E,0x1CC1A,0x1D33F,0x1ED75,0x1F250,0x209D5,0x216F0,0x228BA,0x2379F];
-    const FMT_M=[0x5412,0x5125,0x5E7C,0x5B4B,0x45F9,0x40CE,0x4F97,0x4AA0];
+/* ========================================
+   WiFi password toggle
+   ======================================== */
+document.getElementById('pwToggle').addEventListener('click', function() {
+    var pwInput = document.getElementById('wifiPass');
+    var isOpen = pwInput.type === 'password';
+    pwInput.type = isOpen ? 'text' : 'password';
+    document.getElementById('pwEyeOpen').style.display = isOpen ? 'none' : 'block';
+    document.getElementById('pwEyeClosed').style.display = isOpen ? 'block' : 'none';
+});
 
-    function getVer(len){for(let v=1;v<=40;v++)if(CAP_M[v]>=len)return v;return -1}
-    function modCnt(v){return v*4+17}
-    function totalDCW(v){return BLK1_M[v]*DCW1_M[v]+BLK2_M[v]*DCW2_M[v]}
-    function mkM(v){const s=modCnt(v),m=[];for(let i=0;i<s;i++)m[i]=new Array(s).fill(null);return m}
-    function addFinder(m,r,c){const s=m.length;for(let dr=-1;dr<=7;dr++)for(let dc=-1;dc<=7;dc++){const mr=r+dr,mc=c+dc;if(mr<0||mr>=s||mc<0||mc>=s)continue;m[mr][mc]=((dr>=0&&dr<=6&&(dc===0||dc===6))||(dc>=0&&dc<=6&&(dr===0||dr===6))||(dr>=2&&dr<=4&&dc>=2&&dc<=4))?1:0}}
-    function addAlign(m,r,c){for(let dr=-2;dr<=2;dr++)for(let dc=-2;dc<=2;dc++)m[r+dr][c+dc]=(Math.abs(dr)===2||Math.abs(dc)===2||(dr===0&&dc===0))?1:0}
-    function addTiming(m){const s=m.length;for(let i=8;i<s-8;i++){if(m[6][i]===null)m[6][i]=i%2===0?1:0;if(m[i][6]===null)m[i][6]=i%2===0?1:0}}
-    function reserveFmt(m,v){const s=m.length;for(let i=0;i<=8;i++){if(m[8][i]===null)m[8][i]=0;if(m[i][8]===null)m[i][8]=0}for(let i=s-8;i<s;i++)if(m[8][i]===null)m[8][i]=0;for(let i=s-7;i<s;i++)if(m[i][8]===null)m[i][8]=0;m[s-8][8]=1;if(v>=7){const vb=VER_INFO[v];for(let i=0;i<6;i++)for(let j=0;j<3;j++){const bit=(vb>>(i*3+j))&1;m[s-11+j][i]=bit;m[i][s-11+j]=bit}}}
-    function addFmtInfo(m,mask){const s=m.length,fb=FMT_M[mask];for(let i=0;i<15;i++){const bit=(fb>>(14-i))&1;if(i<8){const c=i<6?i:(i===6?7:8);m[8][c]=bit}else m[8][s-15+i]=bit;if(i<8)m[s-1-i][8]=bit;else{const r=i===8?7:(14-i);m[r][8]=bit}}}
-    function placeData(m,bits){const s=m.length;let bi=0,up=true;for(let right=s-1;right>=1;right-=2){if(right===6)right=5;const rows=up?Array.from({length:s},(_,i)=>s-1-i):Array.from({length:s},(_,i)=>i);for(const row of rows)for(let c=0;c<2;c++){const col=right-c;if(m[row][col]!==null)continue;m[row][col]=bi<bits.length&&bits[bi]?1:0;bi++}up=!up}}
-    const MASKS=[(r,c)=>(r+c)%2===0,(r,c)=>r%2===0,(r,c)=>c%3===0,(r,c)=>(r+c)%3===0,(r,c)=>(Math.floor(r/2)+Math.floor(c/3))%2===0,(r,c)=>((r*c)%2+(r*c)%3)===0,(r,c)=>((r*c)%2+(r*c)%3)%2===0,(r,c)=>((r+c)%2+(r*c)%3)%2===0];
-    function applyMask(m,res,mask){const s=m.length,fn=MASKS[mask];for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(res[r][c]===null&&fn(r,c))m[r][c]^=1}
-    function penalty(m){const s=m.length;let p=0;for(let r=0;r<s;r++){let cnt=1;for(let c=1;c<s;c++){if(m[r][c]===m[r][c-1]){cnt++;if(cnt===5)p+=3;else if(cnt>5)p+=1}else cnt=1}}for(let c=0;c<s;c++){let cnt=1;for(let r=1;r<s;r++){if(m[r][c]===m[r-1][c]){cnt++;if(cnt===5)p+=3;else if(cnt>5)p+=1}else cnt=1}}for(let r=0;r<s-1;r++)for(let c=0;c<s-1;c++){const v=m[r][c];if(v===m[r][c+1]&&v===m[r+1][c]&&v===m[r+1][c+1])p+=3}let dk=0;for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(m[r][c]===1)dk++;const pct=(dk/(s*s))*100,p5=Math.floor(pct/5)*5;p+=Math.min(Math.abs(p5-50)/5,Math.abs(p5+5-50)/5)*10;return p}
-    function buildBits(data,v){const bits=[];bits.push(0,1,0,0);const cb=v<=9?8:16;for(let i=cb-1;i>=0;i--)bits.push((data.length>>i)&1);for(const b of data)for(let i=7;i>=0;i--)bits.push((b>>i)&1);const total=totalDCW(v)*8,term=Math.min(4,total-bits.length);for(let i=0;i<term;i++)bits.push(0);while(bits.length%8!==0)bits.push(0);const pad=[0xEC,0x11];let pi=0;while(bits.length<total){const pb=pad[pi%2];for(let i=7;i>=0;i--)bits.push((pb>>i)&1);pi++}return bits}
-    function bitsToBytes(bits){const bytes=[];for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=(b<<1)|(bits[i+j]||0);bytes.push(b)}return new Uint8Array(bytes)}
-    function genEC(dataBytes,v){const ecPB=EC_CW_M[v],nb1=BLK1_M[v],nb2=BLK2_M[v],d1=DCW1_M[v],d2=DCW2_M[v];const gen=getGen(ecPB);const dBlocks=[],eBlocks=[];let off=0;for(let i=0;i<nb1;i++){const blk=dataBytes.slice(off,off+d1);dBlocks.push(blk);off+=d1;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}for(let i=0;i<nb2;i++){const blk=dataBytes.slice(off,off+d2);dBlocks.push(blk);off+=d2;const pad=new Uint8Array(blk.length+ecPB);pad.set(blk);eBlocks.push(polyMod(pad,gen))}const tot=nb1+nb2,maxD=Math.max(d1,d2||0),inter=[];for(let i=0;i<maxD;i++)for(let j=0;j<tot;j++)if(i<dBlocks[j].length)inter.push(dBlocks[j][i]);for(let i=0;i<ecPB;i++)for(let j=0;j<tot;j++)inter.push(eBlocks[j][i]);const bits=[];for(const b of inter)for(let i=7;i>=0;i--)bits.push((b>>i)&1);let rem=0;if(v>=2&&v<=6)rem=7;else if(v>=14&&v<=20)rem=3;else if(v>=21&&v<=27)rem=4;else if(v>=28&&v<=34)rem=3;for(let i=0;i<rem;i++)bits.push(0);return bits}
+/* ========================================
+   App Logic
+   ======================================== */
+var generateBtn = document.getElementById('generateBtn');
+var resultArea = document.getElementById('resultArea');
+var qrCanvas = document.getElementById('qrCanvas');
+var displayUrl = document.getElementById('displayUrl');
+var downloadBtn = document.getElementById('downloadBtn');
+var copyBtn = document.getElementById('copyBtn');
+var errorMsg = document.getElementById('errorMsg');
+var errorText = document.getElementById('errorText');
+var toast = document.getElementById('toast');
+var toastText = document.getElementById('toastText');
+var currentContent = '';
+var highResCanvas = null;
 
-    function generate(text){
-        const data=new TextEncoder().encode(text);
-        const v=getVer(data.length);if(v<0)throw new Error('Too long');
-        const dataBits=buildBits(data,v);const allBits=genEC(bitsToBytes(dataBits),v);const s=modCnt(v);
-        const res=mkM(v);
-        addFinder(res,0,0);addFinder(res,0,s-7);addFinder(res,s-7,0);
-        if(v>=2){const pos=ALIGN[v];for(const r of pos)for(const c of pos){if(r<=8&&c<=8)continue;if(r<=8&&c>=s-8)continue;if(r>=s-8&&c<=8)continue;addAlign(res,r,c)}}
-        addTiming(res);reserveFmt(res,v);
-        let bestM=null,bestP=Infinity;
-        for(let mask=0;mask<8;mask++){const m=mkM(v);for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(res[r][c]!==null)m[r][c]=res[r][c];placeData(m,allBits);applyMask(m,res,mask);addFmtInfo(m,mask);const p=penalty(m);if(p<bestP){bestP=p;bestM=m}}
-        return bestM;
+function isValidUrl(s) {
+    try { var u = new URL(s); return u.protocol === 'http:' || u.protocol === 'https:'; } catch(e) { return false; }
+}
+
+function showError(msg) {
+    errorText.textContent = msg;
+    errorMsg.classList.add('visible');
+}
+
+function hideError() {
+    errorMsg.classList.remove('visible');
+}
+
+function showToast(text) {
+    toastText.textContent = text;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2500);
+}
+
+function getQrContent() {
+    switch (currentTab) {
+        case 'url':
+            var url = document.getElementById('urlInput').value.trim();
+            if (!url) return { error: t('errorEmpty') };
+            if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+            if (!isValidUrl(url)) return { error: t('errorUrl') };
+            return { content: url, display: t('prefix_url') + url };
+
+        case 'text':
+            var txt = document.getElementById('textInput').value.trim();
+            if (!txt) return { error: t('errorEmpty') };
+            return { content: txt, display: t('prefix_text') + (txt.length > 50 ? txt.substring(0, 50) + '...' : txt) };
+
+        case 'phone':
+            var phone = document.getElementById('phoneInput').value.trim();
+            if (!phone) return { error: t('errorEmpty') };
+            return { content: 'tel:' + phone, display: t('prefix_phone') + phone };
+
+        case 'wechat':
+            var wechat = document.getElementById('wechatInput').value.trim();
+            if (!wechat) return { error: t('errorEmpty') };
+            return { content: wechat, display: t('prefix_wechat') + wechat };
+
+        case 'wifi':
+            var ssid = document.getElementById('wifiSsid').value.trim();
+            if (!ssid) return { error: t('errorEmpty') };
+            var pass = document.getElementById('wifiPass').value;
+            var enc = document.getElementById('wifiEncrypt').value;
+            // WiFi QR format: WIFI:T:WPA;S:ssid;P:password;;
+            var wifiStr = 'WIFI:T:' + enc + ';S:' + ssid.replace(/([\\;,":])/g, '\\$1') + ';';
+            if (enc !== 'nopass') {
+                wifiStr += 'P:' + pass.replace(/([\\;,":])/g, '\\$1') + ';';
+            }
+            wifiStr += ';';
+            return { content: wifiStr, display: t('prefix_wifi') + ssid };
+
+        default:
+            return { error: t('errorEmpty') };
     }
+}
 
-    function render(canvas,matrix,modSize=10,quiet=4){
-        const s=matrix.length,total=(s+quiet*2)*modSize;canvas.width=total;canvas.height=total;
-        const ctx=canvas.getContext('2d');ctx.fillStyle='#FFFFFF';ctx.fillRect(0,0,total,total);ctx.fillStyle='#000000';
-        for(let r=0;r<s;r++)for(let c=0;c<s;c++)if(matrix[r][c]===1)ctx.fillRect((c+quiet)*modSize,(r+quiet)*modSize,modSize,modSize);
-    }
-    return{generate,render};
-})();
+function generateQR() {
+    hideError();
+    var result = getQrContent();
+    if (result.error) { showError(result.error); return; }
 
-
-// ==========================================
-// App Logic
-// ==========================================
-const urlInput=document.getElementById('urlInput');
-const generateBtn=document.getElementById('generateBtn');
-const resultArea=document.getElementById('resultArea');
-const qrCanvas=document.getElementById('qrCanvas');
-const displayUrl=document.getElementById('displayUrl');
-const downloadBtn=document.getElementById('downloadBtn');
-const copyBtn=document.getElementById('copyBtn');
-const errorMsg=document.getElementById('errorMsg');
-const toast=document.getElementById('toast');
-const toastText=document.getElementById('toastText');
-
-let currentUrl='',highResCanvas=null;
-
-function t(key){return i18n[currentLang][key]||key}
-function isValidUrl(s){try{const u=new URL(s);return u.protocol==='http:'||u.protocol==='https:'}catch{return false}}
-function showError(msg){const span=errorMsg.querySelector('[data-i18n]');if(span)span.textContent=msg;errorMsg.classList.add('visible');urlInput.classList.add('error')}
-function hideError(){errorMsg.classList.remove('visible');urlInput.classList.remove('error')}
-function showToast(text){toastText.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2500)}
-
-function generateQR(){
-    let url=urlInput.value.trim();
-    if(!url){showError(t('errorEmpty'));return}
-    if(!/^https?:\/\//i.test(url)){url='https://'+url;urlInput.value=url}
-    if(!isValidUrl(url)){showError(t('errorDefault'));return}
-    hideError();currentUrl=url;
+    currentContent = result.content;
     generateBtn.classList.add('loading');
-    generateBtn.querySelector('[data-i18n="generateBtn"]').textContent=t('generating');
-    setTimeout(()=>{
-        try{
-            const matrix=QRCode.generate(url);
-            QRCode.render(qrCanvas,matrix,8,4);
-            highResCanvas=document.createElement('canvas');
-            const ms=Math.floor(1024/(matrix.length+8));
-            QRCode.render(highResCanvas,matrix,ms,4);
-            displayUrl.textContent=url;
+    generateBtn.querySelector('[data-i18n="generateBtn"]').textContent = t('generating');
+
+    setTimeout(function() {
+        try {
+            // Use qrcode-generator library
+            var qr = qrcode(0, 'M');
+            qr.addData(result.content);
+            qr.make();
+
+            // Render preview canvas
+            var moduleCount = qr.getModuleCount();
+            var cellSize = Math.floor(400 / (moduleCount + 8));
+            var margin = cellSize * 4;
+            var totalSize = moduleCount * cellSize + margin * 2;
+
+            qrCanvas.width = totalSize;
+            qrCanvas.height = totalSize;
+            var ctx = qrCanvas.getContext('2d');
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, totalSize, totalSize);
+            ctx.fillStyle = '#000000';
+            for (var r = 0; r < moduleCount; r++) {
+                for (var c = 0; c < moduleCount; c++) {
+                    if (qr.isDark(r, c)) {
+                        ctx.fillRect(margin + c * cellSize, margin + r * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
+
+            // Render high-res canvas for download
+            highResCanvas = document.createElement('canvas');
+            var hrCell = Math.floor(1024 / (moduleCount + 8));
+            var hrMargin = hrCell * 4;
+            var hrTotal = moduleCount * hrCell + hrMargin * 2;
+            highResCanvas.width = hrTotal;
+            highResCanvas.height = hrTotal;
+            var hctx = highResCanvas.getContext('2d');
+            hctx.fillStyle = '#FFFFFF';
+            hctx.fillRect(0, 0, hrTotal, hrTotal);
+            hctx.fillStyle = '#000000';
+            for (var r2 = 0; r2 < moduleCount; r2++) {
+                for (var c2 = 0; c2 < moduleCount; c2++) {
+                    if (qr.isDark(r2, c2)) {
+                        hctx.fillRect(hrMargin + c2 * hrCell, hrMargin + r2 * hrCell, hrCell, hrCell);
+                    }
+                }
+            }
+
+            displayUrl.textContent = result.display;
             resultArea.classList.add('visible');
-            setTimeout(()=>resultArea.scrollIntoView({behavior:'smooth',block:'center'}),100);
-        }catch(e){showError(t('errorTooLong'))}
+            setTimeout(function() { resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 100);
+
+        } catch (e) {
+            showError(t('errorTooLong'));
+        }
+
         generateBtn.classList.remove('loading');
-        generateBtn.querySelector('[data-i18n="generateBtn"]').textContent=t('generateBtn');
-    },400);
+        generateBtn.querySelector('[data-i18n="generateBtn"]').textContent = t('generateBtn');
+    }, 300);
 }
 
-function downloadQR(){
-    if(!highResCanvas)return;
-    const a=document.createElement('a');a.download='qr-code.png';a.href=highResCanvas.toDataURL('image/png');a.click();
+function downloadQR() {
+    if (!highResCanvas) return;
+    var a = document.createElement('a');
+    a.download = 'qr-code.png';
+    a.href = highResCanvas.toDataURL('image/png');
+    a.click();
     showToast(t('toastDownload'));
 }
 
-async function copyUrl(){
-    if(!currentUrl)return;
-    try{await navigator.clipboard.writeText(currentUrl)}catch{const ta=document.createElement('textarea');ta.value=currentUrl;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta)}
-    showToast(t('toastCopy'));
+function copyContent() {
+    if (!currentContent) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(currentContent).then(function() {
+            showToast(t('toastCopy'));
+        });
+    } else {
+        var ta = document.createElement('textarea');
+        ta.value = currentContent;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(t('toastCopy'));
+    }
 }
 
-generateBtn.addEventListener('click',generateQR);
-downloadBtn.addEventListener('click',downloadQR);
-copyBtn.addEventListener('click',copyUrl);
-urlInput.addEventListener('keydown',e=>{if(e.key==='Enter')generateQR()});
-urlInput.addEventListener('input',hideError);
-urlInput.focus();
+generateBtn.addEventListener('click', generateQR);
+downloadBtn.addEventListener('click', downloadQR);
+copyBtn.addEventListener('click', copyContent);
 
-// ==========================================
-// Trigger AdSense ads
-// ==========================================
-(adsbygoogle = window.adsbygoogle || []).push({});
-(adsbygoogle = window.adsbygoogle || []).push({});
-(adsbygoogle = window.adsbygoogle || []).push({});
+// Enter key support for all inputs
+document.querySelectorAll('.url-input, .field-input').forEach(function(inp) {
+    inp.addEventListener('keydown', function(e) { if (e.key === 'Enter') generateQR(); });
+    inp.addEventListener('input', hideError);
+});
+document.getElementById('textInput').addEventListener('input', hideError);
+document.getElementById('urlInput').focus();
+
+// Trigger AdSense
+try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
 </script>
 
 <script type="application/ld+json">
-{
-    "@context":"https://schema.org",
-    "@type":"WebApplication",
-    "name":"QR扫描王",
-    "description":"Free online QR code generator. Enter a URL and instantly create a high-quality QR code. Download as PNG.",
-    "applicationCategory":"UtilityApplication",
-    "operatingSystem":"All",
-    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-    "featureList":["QR Code Generation","PNG Download","URL to QR Code","Free to Use"]
-}
+{"@context":"https://schema.org","@type":"WebApplication","name":"QR扫描王","description":"Free online QR code generator for URLs, text, phone, WeChat, and WiFi. Download as PNG.","applicationCategory":"UtilityApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"featureList":["QR Code Generation","WiFi QR Code","Phone QR Code","WeChat QR Code","PNG Download","Free to Use"]}
 </script>
 </body>
 </html>
